@@ -21,29 +21,29 @@ import java.util.List;
 
 @SpringBootApplication
 public class LittlePayDemoApplication implements CommandLineRunner {
-	private static final Logger logger = LoggerFactory.getLogger(LittlePayDemoApplication.class);
-	@Autowired
-	private TripGenerator tripGenerator;
+    private static final Logger logger = LoggerFactory.getLogger(LittlePayDemoApplication.class);
+    @Autowired
+    private TripGenerator tripGenerator;
 
-	public static void main(String[] args) {
-		SpringApplication.run(LittlePayDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LittlePayDemoApplication.class, args);
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
-		if (args.length > 0) {
-			List<Tap> taps = new CsvToBeanBuilder(new FileReader(args[0]))
-					.withType(Tap.class).build().parse();
-			List<Trip> trips = tripGenerator.generateTrips(taps);
-			try (Writer writer  = new FileWriter("trips.csv")) {
-				StatefulBeanToCsv<Trip> sbc = new StatefulBeanToCsvBuilder<Trip>(writer)
-						.withQuotechar(ICSVWriter.NO_QUOTE_CHARACTER)
-						.withSeparator(ICSVWriter.DEFAULT_SEPARATOR)
-						.build();
-				sbc.write(trips);
-			}
-		} else {
-			logger.error("Please provide the path to a valid CSV file containing the Tap information");
-		}
-	}
+    @Override
+    public void run(String... args) throws Exception {
+        if (args.length > 0) {
+            List<Tap> taps = new CsvToBeanBuilder(new FileReader(args[0]))
+                    .withType(Tap.class).build().parse();
+            List<Trip> trips = tripGenerator.generateTrips(taps);
+            try (Writer writer = new FileWriter("trips.csv")) {
+                StatefulBeanToCsv<Trip> sbc = new StatefulBeanToCsvBuilder<Trip>(writer)
+                        .withQuotechar(ICSVWriter.NO_QUOTE_CHARACTER)
+                        .withSeparator(ICSVWriter.DEFAULT_SEPARATOR)
+                        .build();
+                sbc.write(trips);
+            }
+        } else {
+            logger.error("Please provide the path to a valid CSV file containing the Tap information");
+        }
+    }
 }

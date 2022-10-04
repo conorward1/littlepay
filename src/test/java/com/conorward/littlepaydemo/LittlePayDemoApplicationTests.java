@@ -13,11 +13,11 @@ import java.util.List;
 @SpringBootTest(args = {"src/test/resources/test_taps.csv"})
 class LittlePayDemoApplicationTests {
 
-	@Test
-	void applicationRunsAgainstTestData() throws FileNotFoundException {
-		List<Trip> expectedTrips = new CsvToBeanBuilder(new FileReader("src/test/resources/expected_trips.csv")).withType(Trip.class).build().parse();
-		List<Trip> trips = new CsvToBeanBuilder(new FileReader("trips.csv")).withType(Trip.class).build().parse();
-		Assertions.assertEquals(expectedTrips, trips);
-	}
+    @Test
+    void applicationRunsAgainstTestData() throws FileNotFoundException {
+        List<Trip> expectedTrips = new CsvToBeanBuilder(new FileReader("src/test/resources/expected_trips.csv")).withType(Trip.class).build().parse();
+        List<Trip> trips = new CsvToBeanBuilder(new FileReader("trips.csv")).withType(Trip.class).build().parse();
+        Assertions.assertEquals(expectedTrips, trips);
+    }
 
 }

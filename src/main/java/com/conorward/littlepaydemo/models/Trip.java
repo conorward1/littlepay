@@ -34,7 +34,7 @@ public class Trip {
     @CsvBindByName(column = "ToStopId")
     private Stop toStopId;
 
-    @CsvNumber(value = "#0.00")
+    @CsvNumber(value = "$#0.00")
     @CsvBindByName(column = "ChargeAmount")
     private double chargeAmount;
 
